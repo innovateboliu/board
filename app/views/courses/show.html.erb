@@ -1,0 +1,43 @@
+<div class="central_content">
+<p id="notice"><%= notice %></p>
+
+<p>
+<div class="title"><%= @course.name %></div>
+</p>
+
+<p>
+  <%= @course.description %>
+</p>
+
+<hr color="gainsboro" size=1>
+<%= link_to 'All courses', courses_path %> &gt; <%= link_to @course.name, @course%> <br />
+<table class="topics">
+    <col width="300">
+    <col width="250">
+    <col width="50">
+    <tr class="head_row">
+        <th>Topic</th>
+        <th>Last Updated</th>
+        <th>Answers</th>
+    </tr>
+    <% @course.topics.each do |topic| %>
+    <tr class="body_row">
+        <td>
+            <div id="topic_title"><%= link_to topic.title, course_topic_path(:course_id => @course, :id => topic) %></br></div>
+            <div class="comment">created by <%= topic.user.username %></div>
+        </td>
+        <td>
+            <%= topic.comments.find(:last) and topic.comments.find(:last).created_at or topic.created_at %><br />
+            <div class="comment">updated by <%= topic.comments.find(:last) and topic.comments.find(:last).user.username or topic.user.username%></div>
+        </td>
+        <td>
+            <%= topic.comments.count %>
+        </td>
+    </tr>
+    <%end%>
+</table>
+<%= link_to 'All courses', courses_path %> &gt; <%= link_to @course.name, @course%> <br />
+<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Back', courses_path %>
+<%= link_to 'Create new topic', new_course_topic_url(@course) %>
+</div>

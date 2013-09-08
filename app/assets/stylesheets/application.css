@@ -1,0 +1,60 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+#global_console {
+    position:relative;
+    top: 0;
+    left: 0;
+    z-index:999;
+    width:100%;
+    height:30px;
+    background-color:gainsboro;
+    text-align:right;
+}
+
+.account_tag1 {
+    position:absolute;
+    right:100px;
+    top:5px;
+}
+.account_tag2 {
+    position:absolute;
+    right:20px;
+    top:5px;
+}
+.title{
+    font-size: 2em;
+    font-family:Arial;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.topics {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.head_row {
+    font-size: 1.2em;
+    height: 50px;
+    text-align:left;
+}
+.central_content{
+    width:700px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.mini_central_content{
+    width : 400px;
+    margin-left:auto;
+    margin-right:auto;
+}

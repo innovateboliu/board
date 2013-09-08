@@ -1,0 +1,56 @@
+<div class="central_content">
+<p id="notice"><%= notice %></p>
+
+<p>
+<div class="title"><%= @topic.title %></div>
+</p>
+
+<p>
+  <%= @topic.content %>
+</p>
+
+<p>
+<div class="comment">created by <%= @topic.user.username %> at <%= @topic.created_at%></div>
+</p>
+
+<hr color="gainsboro" size=1>
+
+<%= link_to @course.name, @course%> &gt; <%= link_to @topic.title, course_topic_path(@course, @topic)%> <br />
+<table class="topics">
+    <col width="80">
+    <col width="350">
+    <col width="250">
+    <col width="250">
+    <tr class="head_row">
+        <th>Votes</th>
+        <th>Answer</th>
+        <th>Author</th>
+        <th>Vote / Oppose</th>
+    </tr>
+    <% if @topic.comments %>
+    <% @topic.comments.each do |comment| %>
+    <tr>
+        <td>
+            <%=comment.votes%>
+        </td>
+        <td>
+            <p><%=comment.body%></p>
+        </td>
+        <td>
+            <%= comment.user.username %> 
+            answered at <br />
+            <%= comment.created_at%>
+        </td>
+        <td>
+            <%=link_to "vote for it", add_vote_course_topic_comment_url(@course, @topic, :comment_id => comment.id)%> </br>
+            <%=link_to "oppose it", subtract_vote_course_topic_comment_url(@course, @topic, :comment_id => comment.id)%>
+        </td>
+    </tr>
+    <% end %>
+    <% end %>
+</table>
+
+<%= link_to 'Edit', edit_course_topic_path(@course, @topic) %> 
+<%= link_to 'Back', @course%>
+<%= link_to "Reply", reply_course_topic_url(@course, @topic) %>
+</div>

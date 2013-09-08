@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Board</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="global_console">
+    <% if existing_user %>
+        <div class="account_tag1"><%= link_to "Check account", user_path(existing_user.id) %></div>
+        <div class="account_tag2"><%= link_to "Sign out", :signout %></div>
+    <% else %>
+        <div class="account_tag1"><%= link_to "Sign up", new_user_path %></div>
+        <div class="account_tag2"><%= link_to "Sign in", :signin %></div>
+    <% end %>
+        
+</div>
+<%= yield %>
+
+</body>
+</html>
