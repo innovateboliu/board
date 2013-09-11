@@ -130,25 +130,25 @@ class TopicsController < ApplicationController
   def add_vote
       @topic = Topic.find(params[:topic_id])
       p "add vote !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      p params
       @comment = @topic.comments.find(params[:comment_id])
-      p @comment
       @comment.votes += 1
       @comment.save!
-
-      redirect_to(course_topic_path(@course, @topic), :notice => 'You vote successfully!') 
+      render :text => @comment.votes
+      p response.body
+      #redirect_to(course_topic_path(@course, @topic), :notice => 'You vote successfully!') 
   end
 
   def subtract_vote
       @topic = Topic.find(params[:topic_id])
       p "subtract vote !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      p params
+      p request.original_url 
       @comment = @topic.comments.find(params[:comment_id])
       p @comment
       @comment.votes -= 1
       @comment.save!
 
-      redirect_to(course_topic_path(@course, @topic), :notice => 'You vote successfully!') 
+      render :text => @comment.votes
+      #redirect_to(course_topic_path(@course, @topic), :notice => 'You vote successfully!') 
   end
   private
 

@@ -12,8 +12,8 @@ Board::Application.routes.draw do
 
   get '/course/:course_id/topics/:topic_id/reply' => "topics#reply", :as => :reply_course_topic
   post '/course/:course_id/topics/:topic_id/reply' => "topics#save_comment", :as => :reply_course_topic
-  get '/course/:course_id/topics/:topic_id/add_vote' => "topics#add_vote", :as => :add_vote_course_topic_comment
-  get '/course/:course_id/topics/:topic_id/subtract_vote' => "topics#subtract_vote", :as => :subtract_vote_course_topic_comment
+  get '/courses/:course_id/topics/:topic_id/add_vote' => "topics#add_vote", :as => :add_vote_course_topic_comment
+  get '/courses/:course_id/topics/:topic_id/subtract_vote' => "topics#subtract_vote", :as => :subtract_vote_course_topic_comment
 
   root :to => "courses#index"
 

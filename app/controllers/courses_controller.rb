@@ -2,11 +2,12 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @courses = Course.all(:include => :topics)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @courses }
+      format.xml { render xml: @courses.to_xml(:include => :topics) }
     end
   end
 

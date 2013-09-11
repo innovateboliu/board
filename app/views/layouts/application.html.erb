@@ -15,9 +15,13 @@
         <div class="account_tag1"><%= link_to "Sign up", new_user_path %></div>
         <div class="account_tag2"><%= link_to "Sign in", :signin %></div>
     <% end %>
-        
-</div>
 <%= yield %>
+</div>
+
+<div id="real_time_console">
+  <hr id="notification_bar">
+
+</div>
 
 </body>
 </html>
