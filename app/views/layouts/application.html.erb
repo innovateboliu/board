@@ -10,7 +10,41 @@
 <div id="global_console">
     <% if existing_user %>
         <div class="account_tag1"><%= link_to "Check account", user_path(existing_user.id) %></div>
-        <div class="account_tag2"><%= link_to "Sign out", :signout %></div>
+        <div class="account_tag2">
+          <%= link_to "Sign out", :signout %>
+          <p>user id is <%=existing_user.id%></p>
+        </div>
+        <%= hidden_field_tag :existing_user_id, existing_user.id%>
+        <script>
+          var id = document.getElementById('existing_user_id').value;
+          var socket = io.connect('//localhost:9999/');
+          socket.on('connect', function(data) {
+            var message = {
+              'new_user': id
+            }
+            
+            var text = JSON.stringify(message);
+            socket.send(text);
+          });
+          socket.on('new_reply_topic', function(data) {
+            if (JSON.parse(data)['topic_user_id'].toString() === document.getElementById('existing_user_id').value.toString()) {
+              document.getElementById('notification').innerHTML = "Your topic has a new reply"; 
+            } else {
+            }
+          });
+
+          socket.on('new_user_connected', function(data){
+            alert("new user connected " + data);
+            var newLi = document.createElement('li');
+            var newLiText = document.createTextNode(data);
+            var existingList = document.getElementById('online_users_list')
+            while (existingList.firstChild) {
+              existingList.removeChild(existingList.firstChild);
+            }
+            newLi.appendChild(newLiText);
+            existingList.appendChild(newLi);
+          });
+        </script>
     <% else %>
         <div class="account_tag1"><%= link_to "Sign up", new_user_path %></div>
         <div class="account_tag2"><%= link_to "Sign in", :signin %></div>
@@ -19,8 +53,15 @@
 </div>
 
 <div id="real_time_console">
-  <hr id="notification_bar">
+  <div id="online_users_list">
+    <% if existing_user %>
+      <ul>
 
+      </ul>
+    <%end%>
+  </div>
+  <hr id="notification_bar">
+  <div id='notification'></div>
 </div>
 
 </body>

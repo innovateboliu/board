@@ -3,19 +3,19 @@ class ApplicationController < ActionController::Base
   helper_method :existing_user
 
   def existing_user
-      if defined?(@existing_user)
-          @existing_user 
+    if defined?(@existing_user)
+      @existing_user 
+    else
+      session = Session.find
+      if session.nil?
+        nil
       else
-          session = Session.find
-          if session.nil?
-              nil
-          else
-              session.record
-          end
+        session.record
       end
+    end
   end
 
   def existing_session
-      Session.find
+    Session.find
   end
 end

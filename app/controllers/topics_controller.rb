@@ -118,6 +118,13 @@ class TopicsController < ApplicationController
           @topic = Topic.find(params[:topic_id])
           @comment = @topic.comments.build(params[:comment])
           @comment.user_id = existing_user.id
+          #$redis.publish 'new_reply_topic', " topic_id:" + @topic.id.to_s+" Your topic: " + @topic.title + " has a new reply" + @comment.body
+          $redis.publish 'new_reply_topic', {
+              :topic_id => @topic.id,
+              :topic_user_id => @topic.user.id,
+              :comment_from => @comment.user_id
+            }.to_json
+          
       end
 
       respond_to do |format|

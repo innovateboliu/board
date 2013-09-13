@@ -54,7 +54,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
-    multi_json (1.7.9)
+    multi_json (1.8.0)
     pg (0.15.1)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -87,6 +87,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    redis (3.0.4)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -118,6 +119,7 @@ DEPENDENCIES
   rack (= 1.4.1)
   rails (= 3.2.7)
   rails_12factor (= 0.0.2)
+  redis
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)

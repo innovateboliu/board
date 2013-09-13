@@ -28,6 +28,8 @@ gem 'authlogic'
 
 gem 'rack', '1.4.1'
 
+gem 'redis'
+
 group :production do
     gem 'pg', '0.15.1'
     gem 'rails_12factor', '0.0.2'
