@@ -37,7 +37,9 @@
     <%end%>
 </table>
 <%= link_to 'All courses', courses_path %> &gt; <%= link_to @course.name, @course%> <br />
+<div class="line">
 <%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<%= link_to 'Back', courses_path %> | 
 <%= link_to 'Create new topic', new_course_topic_url(@course) %>
+</div>
 </div>

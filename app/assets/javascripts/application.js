@@ -13,3 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+
+function process_notification() {
+  var not = document.getElementById('notification');
+  not.style.backgroundColor = "#c4e0fd";
+  while(not.firstChild) {
+    not.removeChild(not.firstChild);
+  }
+}

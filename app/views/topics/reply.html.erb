@@ -1,3 +1,4 @@
+<div class="central_content">
 <h1>Reply to <%= @topic.title %></h1>
 <%= form_for(@comment, :url => reply_course_topic_url(:course_id=>@course, :topic_id=>@topic)) do |f| %>
     <% if @comment.errors.any? %>
@@ -22,4 +23,7 @@
         <%= f.submit(:value => "Create Reply")%>
     </div>
 <% end %>
+<div class="line">
 <%= link_to "Go back to " + @topic.title, course_topic_path(@course,@topic)%>
+</div>
+</div>

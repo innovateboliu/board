@@ -9,18 +9,20 @@
 <body>
 <div id="global_console">
     <% if existing_user %>
-        <div class="account_tag1"><%= link_to "Check account", user_path(existing_user.id) %></div>
+        <div class="account_tag1"><%= link_to existing_user.username, user_path(existing_user.id) %></div>
         <div class="account_tag2">
           <%= link_to "Sign out", :signout %>
-          <p>user id is <%=existing_user.id%></p>
         </div>
         <%= hidden_field_tag :existing_user_id, existing_user.id%>
+        <%= hidden_field_tag :existing_user_name, existing_user.username%>
         <script>
           var id = document.getElementById('existing_user_id').value;
+          var user_name = document.getElementById('existing_user_name').value;
           var socket = io.connect('//localhost:9999/');
           socket.on('connect', function(data) {
             var message = {
-              'new_user': id
+              'new_user_id': id,
+              'new_user_name': user_name 
             }
             
             var text = JSON.stringify(message);
@@ -29,39 +31,41 @@
           socket.on('new_reply_topic', function(data) {
             if (JSON.parse(data)['topic_user_id'].toString() === document.getElementById('existing_user_id').value.toString()) {
               document.getElementById('notification').innerHTML = "Your topic has a new reply"; 
-            } else {
+              document.getElementById('notification').style.backgroundColor= "red"; 
             }
           });
 
           socket.on('new_user_connected', function(data){
-            alert("new user connected " + data);
-            var newLi = document.createElement('li');
-            var newLiText = document.createTextNode(data);
             var existingList = document.getElementById('online_users_list')
             while (existingList.firstChild) {
               existingList.removeChild(existingList.firstChild);
             }
-            newLi.appendChild(newLiText);
-            existingList.appendChild(newLi);
+            data.forEach(function(item, index, arr) {
+              var newLi = document.createElement('li');
+              var newLiText = document.createTextNode(item["user_name"]);
+              newLi.appendChild(newLiText);
+              existingList.appendChild(newLi);
+            });
           });
         </script>
     <% else %>
         <div class="account_tag1"><%= link_to "Sign up", new_user_path %></div>
         <div class="account_tag2"><%= link_to "Sign in", :signin %></div>
     <% end %>
+</div>
+    <div id="content">
 <%= yield %>
 </div>
 
 <div id="real_time_console">
-  <div id="online_users_list">
+  <h2>Online users</h3>
+  <div id="online_users">
     <% if existing_user %>
-      <ul>
-
+      <ul id="online_users_list">
       </ul>
     <%end%>
   </div>
-  <hr id="notification_bar">
-  <div id='notification'></div>
+  <div id='notification' onclick="process_notification()"></div>
 </div>
 
 </body>
