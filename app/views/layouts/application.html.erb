@@ -18,7 +18,7 @@
         <script>
           var id = document.getElementById('existing_user_id').value;
           var user_name = document.getElementById('existing_user_name').value;
-          var socket = io.connect('//localhost:9999/');
+          var socket = io.connect('http://board-node.jit.su:80');
           socket.on('connect', function(data) {
             var message = {
               'new_user_id': id,
